@@ -23,3 +23,68 @@ test('Testando cadastro de três perguntas', () => {
   expect(perguntas[2].num_respostas).toBe(0);
   expect(perguntas[1].id_pergunta).toBe(perguntas[2].id_pergunta-1);
 });
+
+
+// My tests
+
+// test('Testando cadastro de respostas, IDs e num de respostas', () => {
+//   id_pergunta = modelo.cadastrar_pergunta('O que é teste?');
+
+//   num_respostas = modelo.get_num_respostas(id_pergunta);
+//   expect(num_respostas).toBe(0);
+
+//   id_resposta = modelo.cadastrar_resposta(id_pergunta, 'Teste é teste');
+
+//   num_respostas2 = modelo.get_num_respostas(id_pergunta);
+//   expect(num_respostas2).toBe(1);
+
+//   pergunta = modelo.get_pergunta(id_pergunta);
+//   respostas = modelo.get_respostas(id_pergunta);
+
+//   expect(pergunta.texto).toBe('O que é teste?');
+
+//   expect(respostas[0].id_resposta).toBe(id_resposta);
+
+//   modelo.cadastrar_resposta(id_pergunta, 'TESTE_TESTE');
+
+//   num_respostas3 = modelo.get_num_respostas(id_pergunta);
+//   expect(num_respostas3).toBe(2);
+// });
+
+test('Cadastro de resposta', () => {
+  const id_pergunta = modelo.cadastrar_pergunta('O que é teste?');
+  const id_resposta = modelo.cadastrar_resposta(id_pergunta, 'Teste é teste');
+
+  const respostas = modelo.get_respostas(id_pergunta);
+
+  expect(respostas[0].id_resposta).toBe(id_resposta);
+  expect(respostas[0].texto).toBe('Teste é teste');
+});
+
+test('Checar ID de resposta e pergunta', () => {
+  const id_pergunta = modelo.cadastrar_pergunta('O que é teste?');
+  const id_resposta = modelo.cadastrar_resposta(id_pergunta, 'Teste é teste');
+
+  const pergunta = modelo.get_pergunta(id_pergunta);
+  const respostas = modelo.get_respostas(id_pergunta);
+
+  expect(pergunta.texto).toBe('O que é teste?');
+  expect(respostas[0].id_resposta).toBe(id_resposta);
+});
+
+test('Checar número de respostas', () => {
+  const id_pergunta = modelo.cadastrar_pergunta('O que é teste?');
+
+  let num_respostas = modelo.get_num_respostas(id_pergunta);
+  expect(num_respostas).toBe(0);
+
+  modelo.cadastrar_resposta(id_pergunta, 'Teste é teste');
+
+  let num_respostas2 = modelo.get_num_respostas(id_pergunta);
+  expect(num_respostas2).toBe(1);
+
+  modelo.cadastrar_resposta(id_pergunta, 'TESTE_TESTE');
+
+  let num_respostas3 = modelo.get_num_respostas(id_pergunta);
+  expect(num_respostas3).toBe(2);
+});
